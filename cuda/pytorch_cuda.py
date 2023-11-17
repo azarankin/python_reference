@@ -32,12 +32,14 @@ start = time.time()
 x_gpu = x.to(device)
 y_gpu = x.to(device)
 torch.cuda.synchronize()
+cuda_init_time = time.time() - start
 
 for i in range(3):
     print(">>>>>>>> GPU SPEED <<<<<<<<<<")
+    start = time.time()
     result_gpu = torch.matmul(x_gpu, y_gpu)
     torch.cuda.synchronize()
-    print(time.time() - start)
+    print(time.time() - start + cuda_init_time)
     print(f"verify device: {result_gpu.device}")
 
 
