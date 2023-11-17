@@ -1,0 +1,57 @@
+ubuntu
+
+https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+
+https://docs.nvidia.com/ai-enterprise/deployment-guide-vmware/0.1.0/docker.html#testing-docker-and-nvidia-container-runtime
+
+
+https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch
+
+
+
+*check in chatgpt: "how to install nvidia docker ?"
+
+
+
+
+To install NVIDIA Docker, you need to follow these general steps. Please note that these instructions might change, and it's always a good idea to check the official NVIDIA Docker documentation for the most up-to-date information:
+
+Install Docker:
+Ensure that Docker is installed on your system. You can follow the official Docker installation guide for your specific operating system: Docker Installation.
+
+Install NVIDIA Container Toolkit:
+NVIDIA Container Toolkit is a set of Docker images and configurations that work together with the NVIDIA GPU driver to enable GPU support in Docker containers.
+
+Add the NVIDIA runtime repository to your system:
+
+bash
+Copy code
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/$distribution $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+Install the NVIDIA Container Toolkit:
+
+bash
+Copy code
+sudo apt-get update && sudo apt-get install -y nvidia-docker2
+Restart Docker:
+After installing NVIDIA Container Toolkit, restart the Docker daemon to apply the changes:
+
+bash
+Copy code
+sudo systemctl restart docker
+Test NVIDIA Docker:
+You can test whether NVIDIA Docker is working correctly by running the following command:
+
+bash
+Copy code
+docker run --gpus all nvidia/cuda:11.0-base nvidia-smi
+If everything is set up correctly, you should see information about the GPU.
+
+Please note that the instructions may vary depending on your Linux distribution. The above instructions are for Ubuntu-based systems. If you are using a different distribution, you may need to adjust the package manager commands accordingly.
+
+Always refer to the official documentation for the most accurate and up-to-date instructions:
+
+https://github.com/NVIDIA/nvidia-docker
+
+https://nvidia.github.io/nvidia-docker/
